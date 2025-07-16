@@ -17,7 +17,7 @@ export default async function handler(req, res) {
         return res.status(405).json({ success: false, error: 'Method Not Allowed' });
     }
 
-    const { code } = req.body;
+    const { name, code } = req.body;
 
     const transporter = nodemailer.createTransport({
         service: 'Gmail',
@@ -31,7 +31,7 @@ export default async function handler(req, res) {
         from: 'info@parmarketing.agency',
         to: 'info@parmarketing.agency',
         subject: 'Code Challenge Submission',
-        text: `Submitted Code:\n\n${code}`
+        text: `Submitted By: ${name || 'Anonymous'}\n\nCode:\n${code}`
     };
 
     try {
